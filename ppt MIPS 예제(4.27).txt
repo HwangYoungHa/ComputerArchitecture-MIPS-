@@ -1,0 +1,57 @@
+(2)
+      _main: 
+                addi $a0, $0, 3
+                addi $s0, $0, 4
+                jal _f
+                nop
+                nop
+                nop
+
+     _f:
+                addi $sp, $sp, -8
+                sw $ra, 4($sp)
+                sw $s0, 0($sp)
+
+                addi $s0, $a1, 0
+                jal _g
+                nop
+                slt $v0, $v0, $s0
+     EXIT:
+               lw $ra, 4($sp)
+               lw $s0, 0($sp)
+               addi $sp, $sp, 8
+               jr $ra
+               nop
+     _g:
+               addi $v0, $a0, 8
+               jr $ra
+               nop
+
+# (3)
+      _main: 
+                addi $a0, $0, 3
+                jal _f
+                nop
+                nop
+                nop
+
+     _f:
+                addi $sp, $sp, -8
+                sw $ra, 4($sp)
+                sw $s0, 0($sp)
+
+                addi $s0, $a0, 0
+                addi $v0, $0, 0
+                slt $t0, $0, $a0
+                beq $t0, $0, RET
+                nop
+                addi $a0, $s0, -1
+                jal _f
+                nop
+                add $v0, $v0, $s0
+     RET:
+               lw $ra, 4($sp)
+               lw $s0, 0($sp)
+               addi $sp, $sp, 8
+               jr $ra
+               nop

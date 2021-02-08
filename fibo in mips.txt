@@ -1,0 +1,112 @@
+Write a MIPS assembly code.
+
+
+
+int fibo(int n)
+
+{
+
+if (n<2) return 1;
+
+else return f(n-1)+f(n-2);
+
+}
+
+
+
+int main()
+
+{
+
+fibo(4);
+
+}
+
+
+
+State the $v0 after fibo function in main.
+
+제출 콘텐츠
+_main:
+
+addi $a0, $0, 4
+
+jal _fibo
+
+nop
+
+j exit
+
+
+
+_fibo:
+
+addi $sp, $sp, -12 # stack
+
+sw $s0, 0($sp) # value of n
+
+sw $s1, 4($sp) # storing value of return (temporary)
+
+sw $ra, 8($sp) # return address
+
+
+
+slti $t0, $a0, 2 # checking (n < 2)
+
+beq $t0, $0, _Else
+
+nop
+
+
+
+addi $v0, $0, 1 # if (n < 2)
+
+j _exit
+
+nop
+
+
+
+_Else:
+
+addi $s0, $a0, 0
+
+addi $a0, $s0, -1 # f(n-1)
+
+jal _fibo
+
+nop
+
+addi $s1, $v0, 0 # storing value of f(n-1) in $s1
+
+addi $a0, $s0, -2 # f(n-2)
+
+jal _fibo
+
+nop
+
+add $v0, $s1, $v0 # adding value of f(n-2) in $s1
+
+j _exit
+
+nop
+
+
+
+_exit: # escaping recursion function(_fibo)
+
+lw $s0, 0($sp)
+
+lw $s1, 4($sp)
+
+lw $ra, 8($sp)
+
+addi $sp, $sp, 12
+
+jr $ra
+
+nop
+
+
+
+exit: #escaping _main function

@@ -1,0 +1,31 @@
+_main:
+addi $a0, $0, 3
+jal _fact
+nop
+
+_fact:
+addi $sp, $sp, -8 # ra, a0(a0 따로 저장 안하면 -1된 값으로 남음)
+sw $ra, 0($sp) # 복귀할 주소 저장(memory)
+sw $s0, 4($sp) # 기존 갖고 있던 n값 저장(memory)
+addi $s0, $a0, 0
+
+beq $a0, $0, Ret
+nop
+
+addi $a0, $a0, -1
+jal _fact # fact(n-1)
+nop
+
+lw $a0, 4($sp) # 이전의 a0값 가져옴
+mul $v0, $v0, $a0 # n * fact(n-1)
+j exit
+nop
+
+Ret:
+addi $v0, $0, 1 # return 1
+
+exit: 
+lw $ra, 0($sp) # 돌아갈 주소 가져옴
+addi $sp, $sp, 8 # stack 회복
+jr $ra # 상위 함수로 복귀
+nop

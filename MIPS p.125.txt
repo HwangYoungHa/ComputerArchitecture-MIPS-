@@ -1,0 +1,54 @@
+#E2
+_main:
+addi $a0, $0, 3
+addi $a1, $0, 4
+jal _f
+nop
+break
+
+_f:
+addi $sp, $sp, -4
+sw $ra, 0($sp)
+jal _g
+nop
+slt $v0, $v1, $a1
+
+lw $ra, 0($sp)
+addi $sp, $sp, 4
+jr $ra
+nop
+
+_g:
+addi $v1, $a0, 8
+jr $ra
+nop
+
+#E3
+_main:
+addi $a0, $0, 3
+jal _f
+nop
+break
+
+_f:
+addi $sp, $sp, -8
+sw $s0, 0($sp)
+sw $ra, 4($sp)
+
+addi $s0, $a0, 0
+addi $v0, $v0, 0
+
+slti $t0, $s0, 0
+bne $t0, $0, Ret
+nop
+addi $a0, $a0, -1
+jal _f
+nop
+add $v0, $v0, $s0
+
+Ret:
+lw $ra, 4($sp)
+lw $s0, 0($sp)
+addi $sp, $sp, 8
+jr $ra
+nop

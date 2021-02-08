@@ -1,0 +1,30 @@
+#jal과 jr에서의 PC값 주목!!
+addi $1, $0, 1
+addi $1, $1, 1
+addi $1, $0, 1
+addi $1, $0, 1
+jal Label
+nop
+addi $1, $0, 1
+addi $1, $0, 1
+addi $1, $0, 1
+addi $1, $0, 1
+Label: addi $1, $0, 1
+addi $1, $0, 1
+addi $1, $0, 1
+addi $1, $0, 1
+jr $ra
+nop
+
+#2
+_main:
+        addi $a0, $0, 2
+        addi $a1, $0, 3
+        addi $a1, $0, 1
+        jal _f
+        nop
+        addi $t0, $v0, 5
+
+_f: add $v0, $a0, $a1
+    jr $ra
+    nop

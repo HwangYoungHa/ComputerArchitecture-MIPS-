@@ -1,0 +1,67 @@
+addi $1,$0,1
+addi $2,$0,10
+addi $3,$0,1
+
+L: bne $1,$2,EXIT
+nop
+add $3,$3,$1
+addi $1,$1,1
+j L
+nop
+EXIT:
+
+# beq가 아닌 bne 사용(true case)
+addi $2, $0, 4
+addi $3, $0, 3
+slt $1, $2, $3
+bne $1, $0, TRUE
+nop
+sub $4, $2, $3
+j EXIT
+nop
+TRUE: add $4, $2, $3
+j EXIT
+nop
+EXIT: 
+
+#Exercise1 Loop code2
+addi $1, $0, 0
+addi $2, $0, 0
+Loop: slti $3, $1, 10
+beq $3, $0, EXIT
+nop
+add $2, $2, $1
+addi $1, $1, 1
+j Loop
+nop
+EXIT: 
+#$1 : a / $2 : 2d
+
+#Exercise1 Loop code3
+addi $1, $0, 0
+addi $2, $0, 0
+Loop: add $2, $2, $1
+addi $1, $1, 1
+slti $3, $1, 10
+beq $3, $0, EXIT
+nop
+j Loop
+nop
+EXIT:
+
+#Code 3
+
+#피보나치
+addi $1, $0, 1 # f1
+addi $2, $0, 1 # f2
+addi $3, $0, 0 # i
+loop: slti $4, $3, 10
+beq $4, $0, Exit
+nop
+add $5, $1, $2
+addi $1, $2, 0
+addi $2, $5, 0
+addi $3, $3, 1
+j loop
+nop
+Exit: 
