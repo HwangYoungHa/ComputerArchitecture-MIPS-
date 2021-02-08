@@ -1,0 +1,27 @@
+_main:
+addi $a0, $0, 5
+jal _fact
+nop
+break
+
+_fact:
+addi $sp, $sp, -8
+sw $ra, 0($sp)
+sw $s0, 4($sp)
+addi $v0, $0, 1
+add $s0, $0, $a0
+beq $a0, $0, Ret
+nop
+addi $a0, $a0, -1
+jal _fact
+nop
+mul $v0, $v0, $s0
+j Ret
+nop
+
+Ret:
+lw $s0, 4($sp)
+lw $ra, 0($sp)
+addi $sp, $sp, 8
+jr $ra
+nop

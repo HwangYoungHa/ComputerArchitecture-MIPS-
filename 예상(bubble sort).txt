@@ -1,0 +1,35 @@
+# $a0 : arr[] / $a1 : count
+
+bubble:
+addi $t0, $0, 0 # i
+loop1:
+slt $t1, $t0, $a1
+beq $t0, $0, exit
+nop
+loop2:
+addi $t3, $0, 0 # j
+addi $t2, $a1, -1 # count-1
+slt $t1, $t3, $t2 # j 와 count-1 비교
+beq $t1, $0, end1 # false -> loop1!
+nop
+lw $t5, 0($a0) # load
+lw $t6, 4($a0)
+slt $t1, $t6, $t5 # 비교
+beq $t1, $0, end2 # false -> loop
+nop
+sw $t5, 4($a0) # swap
+sw $t6, 0($a0)
+j end2
+nop
+
+end1:
+addi $t0, $t0, 1
+j loop1
+nop
+
+end2:
+addi $t3, $t3, 1
+j loop2
+nop
+
+exit:

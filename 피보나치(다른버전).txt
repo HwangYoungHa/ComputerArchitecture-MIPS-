@@ -1,0 +1,30 @@
+addi $a0, $0, 5
+_fib:
+addi $sp, $sp, -12
+sw $ra, 0($sp)
+sw $s0, 4($sp)
+sw $s1, 8($sp)
+add $s0, $0, $a0
+addi $v0, $0, 0
+beq $a0, $0, Ret # n == 0
+nop
+addi $v0, $v0, 1
+beq $a0, $v0, Ret # n ==1
+nop
+addi $a0, $s0, -1
+jal _fib
+nop
+add $s1, $0, $v0 # f(n-1) 저장
+addi $a0, $s0, -2
+jal _fib
+nop
+add $v0, $s1, $v0 # f(n-1) + f(n-2)
+j Ret
+
+Ret:
+lw $s1, 8($sp)
+lw $s0, 4($sp)
+lw $ra, 0($sp)
+addi $sp, $sp, 12
+jr $ra
+nop

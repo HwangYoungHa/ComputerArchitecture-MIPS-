@@ -1,0 +1,7 @@
+1. 해결방법
+we can solve this problem by making code calculating the size of array.
+
+
+2. stack overflow error의 의미와 발생하는 이유
+Because it goes endless loop, so the stack will keep stored.
+If the memory can’t accept any stack, then the program will stop, and the error occurs.

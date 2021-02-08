@@ -1,0 +1,20 @@
+_main:
+addi $a0, $0, 10
+jal _sigma
+nop
+break
+
+_sigma:
+add $v0, $0, $0
+loop:
+slt $t0, $0, $a0
+beq $t0, $0, exit
+nop
+add $v0, $v0, $a0
+addi $a0, $a0, -1
+j loop
+nop
+
+exit:
+jr $ra
+nop

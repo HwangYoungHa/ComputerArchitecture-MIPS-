@@ -1,0 +1,17 @@
+_f:
+addi $sp, $sp, -8
+sw $s0, 0($sp)
+sw $ra, 4($sp)
+add $s0, $a1, $a2
+jal func
+nop
+add $a0, $0, $v0
+add $a1, $0, $s0
+jal func
+nop
+add $v0, $v0, $s0
+lw $ra, 4($sp)
+lw $s0, 0($sp)
+addi $sp, $sp, 8
+jr $ra
+nop
